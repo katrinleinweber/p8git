@@ -1,0 +1,17 @@
+variable	output string "cube"
+units           real
+dimension       3
+boundary        p p p
+atom_style      full
+
+lattice sc 4.08
+region space prism 0 ${n} 0 ${n} 0 ${n} 0 0 0
+create_box  1 space
+create_atoms 1 box 
+atom_modify sort 0 0
+mass * 18.0145 
+dump 1 all xyz 1 ${output}.xyz
+dump_modify 1 element W
+write_data ${output}.lmp
+thermo_style custom lx ly
+run 0

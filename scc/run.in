@@ -1,0 +1,21 @@
+variable	output string "movie"
+units           real
+dimension       3
+boundary        p p p
+atom_style      full
+atom_modify map hash sort 10000 2.0
+bond_style harmonic
+read_data cube.lmp
+
+variable r1 equal 4.08*sqrt(2)
+
+bond_coeff 1 100 4.08 
+#bond_coeff 2 100 ${r1} 
+
+fix 1 all npt temp 300 300 1 aniso 1 1 1 
+
+#minimize 1.0e-4 1.0e-6 100 1000
+
+#thermo_style custom temp etotal vol press 
+#dump 1 all xyz 1000 ${output}.xyz
+run 1000
