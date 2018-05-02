@@ -27,40 +27,87 @@ read_data cube.lmp
 variable r1 equal 4.08*sqrt(2)
 
 bond_coeff 1 100 4.08
-#bond_coeff 2 100 ${r1}
+bond_coeff 2 100 ${r1}
+bond_coeff 2 100 5.76999133448223
 
 fix 1 all npt temp 300 300 1 aniso 1 1 1
 
-#minimize 1.0e-4 1.0e-6 100 1000
-
-#thermo_style custom temp etotal vol press
-#dump 1 all xyz 1000 ${output}.xyz
-run 1000
+minimize 1.0e-4 1.0e-6 100 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
 WARNING: Inconsistent image flags (../domain.cpp:678)
 WARNING: Bond/angle/dihedral extent > half of periodic box length (../domain.cpp:799)
-Memory usage per processor = 8.63363 Mbytes
+Memory usage per processor = 9.75863 Mbytes
 Step Temp E_pair E_mol TotEng Press Volume 
-       0            0            0    280966.77    280966.77    -13585570    1833.7674 
-    1000      -1.#IND            0      -1.#IND      -1.#IND      -1.#IND      -1.#IND 
+       0            0            0    145744.25    145744.25   -8538954.8    1833.7674 
+       6            0            0    122391.41    122391.41   -7195491.3    1833.7674 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (../domain.cpp:799)
 
-Loop time of 0.0846472 on 1 procs for 1000 steps with 27 atoms
-55.4% CPU use with 1 MPI tasks x 1 OpenMP threads
-Performance: 1020.707 ns/day  0.024 hours/ns  11813.743 timesteps/s
+Loop time of 0 on 1 procs for 6 steps with 27 atoms
+0.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         145744.250588      94258.2583297      122391.414786
+  Force two-norm initial, final = 22760.6 21180.6
+  Force max component initial, final = 4247.5 3598.94
+  Final line search alpha, max atom move = 3.0844e-017 1.11006e-013
+  Iterations, force evaluations = 6 46
 
 MPI task timings breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
 Pair    | 0          | 0          | 0          |   0.0 |  0.00
-Bond    | 0.00050092 | 0.00050092 | 0.00050092 |   0.0 |  0.59
+Bond    | 0          | 0          | 0          |   0.0 |  0.00
 Neigh   | 0          | 0          | 0          |   0.0 |  0.00
 Comm    | 0          | 0          | 0          |   0.0 |  0.00
 Output  | 0          | 0          | 0          |   0.0 |  0.00
-Modify  | 0.084146   | 0.084146   | 0.084146   |   0.0 | 99.41
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
 Other   |            | 0          |            |       |  0.00
 
 Nlocal:    27 ave 27 max 27 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:    37 ave 37 max 37 min
+Nghost:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 0
+Ave neighs/atom = 0
+Ave special neighs/atom = 26
+Neighbor list builds = 1
+Dangerous builds = 0
+
+thermo_style custom temp etotal vol press
+dump 1 all xyz 1000 ${output}.xyz
+dump 1 all xyz 1000 movie.xyz
+
+run 1000
+WARNING: Inconsistent image flags (../domain.cpp:678)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (../domain.cpp:799)
+Memory usage per processor = 8.63363 Mbytes
+Temp TotEng Volume Press 
+           0    122391.41    1833.7674   -7195491.3 
+     -1.#IND      -1.#IND      -1.#IND      -1.#IND 
+
+Loop time of 0.078141 on 1 procs for 1000 steps with 27 atoms
+60.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+Performance: 1105.694 ns/day  0.022 hours/ns  12797.383 timesteps/s
+
+MPI task timings breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Bond    | 0.01563    | 0.01563    | 0.01563    |   0.0 | 20.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0.062511   | 0.062511   | 0.062511   |   0.0 | 80.00
+Other   |            | 0          |            |       |  0.00
+
+Nlocal:    27 ave 27 max 27 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    0 ave 0 max 0 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 Neighs:    0 ave 0 max 0 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
