@@ -72,9 +72,16 @@ for p=1:N
 				bonds[i,j]=sum(vector.*lxyz);
 				
 				if(bonds[i,j]>i)
-					bcount=bcount+1;
-					if(sum(myarray[j,:].*myarray[j,:])>1) b=2; else b=1;end
-					@printf(ff,"%i  %i  %i  %i\n",bcount,b,i,bonds[i,j]);
+					
+					
+					if(sum(myarray[j,:].*myarray[j,:])>1) 
+						b=1;
+						bcount=bcount+1;
+						@printf(ff,"%i  %i  %i  %i\n",bcount,b,i,bonds[i,j]);
+					else 
+						b=2;
+						
+					end
 					
 				end
 			end

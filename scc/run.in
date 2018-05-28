@@ -9,14 +9,16 @@ read_data cube.lmp
 
 variable r1 equal 4.08*sqrt(2)
 
-bond_coeff 1 100 4.08 
-bond_coeff 2 100 ${r1} 
+bond_coeff 1 10 4.08 
+#bond_coeff 2 100 ${r1} 
 
 fix 1 all npt temp 300 300 1 aniso 1 1 1 
+fix A all momentum 100 linear 1 1 1 rescale
+minimize 1.0e-4 1.0e-6 1000000 5000000
 
-minimize 1.0e-4 1.0e-6 100 1000
+timestep 0.01
 
-thermo_style custom temp etotal vol press 
+thermo_style custom step temp etotal vol press 
 dump 1 all xyz 1000 ${output}.xyz
 
-run 1000
+run 10000

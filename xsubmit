@@ -1,0 +1,34 @@
+#!/bin/bash
+###################################################################
+#PBS -j oe
+#PBS -q pizza
+#PBS -l walltime=01:00:00:00
+#PBS -l nodes=12
+#PBS -N sim
+###################################################################
+echo -e "\n###################################################################"
+echo Running on host: `hostname`.
+echo In directory: `pwd`
+echo Starting on: `date`
+echo Using queue: $PBS_O_QUEUE $PBS_QUEUE
+echo Job ID: $PBS_JOBID
+echo This job runs on the following processors:
+echo $PBS_NODEFILE
+echo This job has allocated $PBS_NUM_NODES processors
+echo -e "###################################################################\n"
+###################################################################
+
+#printenv > ENVVAR
+
+export PATH=/opt/software/openmpi-1.6.4/bin:$PATH
+export LD_LIBRARY_PATH=/opt/software/openmpi-1.6.4/lib:$LD_LIBRARY_PATH
+source $HOME/soft/gromacs/gromacs-4.6.7/bin/GMXRC
+cd $PBS_O_WORKDIR
+
+START=$(date +%s)
+/opt/software/openmpi-1.6.4/bin/mpirun -np $PBS_NUM_NODES mdrun -s topol.tpr -cpi state.cpt -append -maxh 120
+END=$(date +%s)
+DIFF=$((END-START))
+
+# end of job script
+###################################################################

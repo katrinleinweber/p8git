@@ -1,0 +1,34 @@
+variable	output string "movie"
+units           real
+dimension       3
+boundary        p p p
+atom_style      full
+atom_modify map hash sort 10000 2.0
+bond_style harmonic
+read_data cube.lmp extra/bond/per/atom 18
+#read_data data.lmp
+pair_style lj/cut 5.0
+
+pair_coeff * * 0.1 4.08
+special_bonds lj 0 0 0
+
+variable r1 equal 4.08*sqrt(2)
+bond_coeff 1 0.01 4.08 
+#bond_coeff 2 0.01 ${r1} 
+
+variable r2d1 equal ${r1}-0.1
+variable r2d2 equal ${r1}+0.1
+
+fix a all npt temp 100 100 1 aniso 1 1 1
+create_bonds many all all 1 4.0 4.2
+#create_bonds many all all 2 ${r2d1} ${r2d2}
+
+
+
+timestep 0.01
+thermo_style custom step temp etotal ebond evdwl emol vol press 
+
+
+run 0
+
+write_data data.lmp

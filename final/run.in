@@ -1,0 +1,29 @@
+variable	output string "movie"
+units           real
+dimension       3
+boundary        p p p
+atom_style      full
+atom_modify map hash sort 10000 2.0
+bond_style harmonic
+
+read_data data.lmp
+
+bond_coeff 1 ${K} ${a}
+
+
+fix a all npt temp 300 300 1 aniso 1 1 1
+
+minimize 1.0e-6 1.0e-6 1000000 5000000
+mini_style cg
+
+timestep 0.01
+thermo_style custom step temp etotal ebond vol epair press 
+thermo 2000
+
+restart 500000 restart.*
+
+dump 1 all xyz 10000 ${output}.xyz
+
+run 1000000
+
+write_data out.lmp
