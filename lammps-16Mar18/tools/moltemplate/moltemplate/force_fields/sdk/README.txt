@@ -5,7 +5,7 @@ v0.2
 This is only part of the SDK force field and is to be used for lipids only. Only parameters from:
 
 Shinoda et al. J. Phys. Chem. B, Vol. 114, No. 20, 2010
-http://dx.doi.org/10.1021/jp9107206
+https://doi.org/10.1021/jp9107206
 
 are used.
 
@@ -36,7 +36,7 @@ NEW! in v0.2:
   SDK Cholesterol model has been added! Using parameters from:
 
 MacDermaid et al. J. Chem. Phys, 143(24), 243144, 2015
-http://dx.doi.org/10.1063/1.4937153
+https://doi.org/10.1063/1.4937153
 
 are used. The following types are defined specifically for cholesterol:
 
